@@ -1,6 +1,6 @@
 FROM node:10.15.0-alpine
 
-RUN apk update && apk add openssh vim bash
+RUN apk update && apk add openssh=8.3_p1-r0 vim=8.2.1419-r0 bash=5.0.18-r0 --no-cache
 
 WORKDIR /tmp
 
