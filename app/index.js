@@ -22,11 +22,11 @@ app.get('*', (request, response) => {
 });
 
 //While running locally we will give a port like 3000. Heroku assigns port automatically that will come from process.env.PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 //While running locally we will provide IP address 127.0.0.1 which is localhost IP Address
 //While hosting on heroku we will chnage host to 0.0.0.0 which will allow anyone from world to access our API when it is hosted on heroku server
-const host = '127.0.0.1';
+const host = '0.0.0.0';
 
 //Listen function here will start the server and logs will be generated locally on console and in logs tab in heroku
 app.listen(port, host, () => {
