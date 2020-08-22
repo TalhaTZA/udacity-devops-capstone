@@ -11,7 +11,7 @@ pipeline {
         stage('Installing hadolint if doesnt exist'){
             steps{
                 sh '''
-                    if ! [ -x "$(command -v minikube)" ]; then
+                    if ! [ -x "$(command -v hadolint)" ]; then
                         echo 'Installing hadolint' >&2
                         make install
                     fi
@@ -27,7 +27,7 @@ pipeline {
         
         stage('Security Scan') {
             steps { 
-                aquaMicroscanner imageName: 'node:10.15.0-alpine', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+                aquaMicroscanner imageName: 'node:12.13.1-stretch-slim', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
             }
         }    
         
