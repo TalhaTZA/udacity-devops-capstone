@@ -25,11 +25,11 @@ pipeline {
             }
         }
         
-        stage('Security Scan') {
+        /* stage('Security Scan') {
             steps { 
                 aquaMicroscanner imageName: 'node:10.15.0-alpine', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
             }
-        }    
+        } */   
         
         stage('Build Docker Image') {
             steps {
