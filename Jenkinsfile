@@ -33,7 +33,7 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                sh 'bash run_docker.sh'
+                sh 'bash build_docker.sh'
             }
         }
         
