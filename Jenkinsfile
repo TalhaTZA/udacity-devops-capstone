@@ -61,14 +61,14 @@ pipeline {
             }
         }
         
-        stage('Checking if app is up') {
+        /* stage('Checking if app is up') {
               steps{
                   echo 'Checking if app is up...'
                   withAWS(credentials: 'aws-capstone', region: 'us-west-2') {
                      sh "curl https://9FDD74559E5FF6931C93E4F2F531F8B5.sk1.us-west-2.eks.amazonaws.com"
                 }
             }
-        }
+        } */
         
         stage('Checking rollout') {
               steps{
