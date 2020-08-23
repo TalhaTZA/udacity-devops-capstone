@@ -44,5 +44,46 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploying') {
+              steps{
+                  echo 'Deploying to AWS...'
+                  withAWS(credentials: 'aws-capstone', region: 'us-west-2') {
+                      sh "cd kubernetes"
+                      sh "aws eks --region us-west-2 update-kubeconfig --name udacity-capstone"
+                      sh "kubectl config use-context arn:aws:eks:us-west-2:363487036927:cluster/udacity-capstone"
+                      sh "kubectl apply -f cluster_deploy.yaml"
+                      sh "kubectl get nodes"
+                      sh "kubectl get deployments"
+                      sh "kubectl get pod -o wide"
+                      sh "kubectl get service/capstone-app"
+                }
+            }
+        }
+        
+        stage('Checking if app is up') {
+              steps{
+                  echo 'Checking if app is up...'
+                  withAWS(credentials: 'aws-capstone', region: 'us-west-2') {
+                     sh "curl https://9FDD74559E5FF6931C93E4F2F531F8B5.sk1.us-west-2.eks.amazonaws.com"
+                }
+            }
+        }
+        
+        stage('Checking rollout') {
+              steps{
+                  echo 'Checking rollout...'
+                  withAWS(credentials: 'aws-capstone', region: 'us-west-2') {
+                     sh "kubectl rollout status deployments/capstone-app"
+                }
+            }
+        }
+        
+        stage("Cleaning up") {
+              steps{
+                    echo 'Cleaning up...'
+                    sh "docker system prune"
+            }
+        }
     }
 }
